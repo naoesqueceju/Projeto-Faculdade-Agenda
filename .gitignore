@@ -1,0 +1,29 @@
+# Ignorar node_modules de ambos frontend e backend
+node_modules/
+
+# Ignorar arquivos de build do frontend (React)
+frontend_react/build/
+
+# Ignorar arquivos de dependências do backend
+backend_node/node_modules/
+
+# Ignorar logs
+*.log
+npm-debug.log*
+
+# Ignorar arquivos de lock
+package-lock.json
+yarn.lock
+
+# Ignorar arquivos de configuração do editor de código
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignorar envs
+.env
+
+# Ignorar arquivos de sistema
+.DS_Store
+Thumbs.db

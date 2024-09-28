@@ -2,7 +2,7 @@ import GlobalSyle from "./style/global";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
-import Form from "./components/Form.js";
+import Form from "./components/Form";
 import Grid from "./components/Grid";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -17,28 +17,28 @@ const Container = styled.div`
 `;
 const Title = styled.h2``;
 function App() {
-  const [agendas, setAgendas] = useState([]);
+  const [usuarios, setUsuarios] = useState([]);
   const [onEdit, setOnEdit] = useState(null);
-  const getAgendas = async () => {
+  const getUsuarios = async () => {
     try {
-      const res = await axios.get("http://localhost:8800");
-      setAgendas(res.data.sort((a, b) => (a.nome > b.nome ? 1 : -1)));
+      const res = await axios.get("http://localhost:8800/usuarios");
+      setUsuarios(res.data);
     } catch (error) {
       toast.error(error);
     }
   };
   useEffect(() => {
-    getAgendas();
-  }, [setAgendas]);
+    getUsuarios();
+  }, [setUsuarios]);
   return (
     <>
       <Container>
-        <Title>AGENDA FRONT-END: REACT e BACK-END: NODE com MYSQL</Title>
-        <Form onEdit={onEdit} setOnEdit={setOnEdit} getAgendas={getAgendas} />
-        <Grid agendas={agendas} setAgendas={setAgendas} setOnEdit={setOnEdit} />
+        <Title>Cadastro de Usuários</Title>
+        <Form onEdit={onEdit} setOnEdit={setOnEdit} getUsuarios={getUsuarios} />
+        <Grid usuarios={usuarios} setUsuarios={setUsuarios} setOnEdit={setOnEdit} />
       </Container>
       <ToastContainer autoClose={3000} />
-      <GlobalSyle />{" "}
+      <GlobalSyle />
     </>
   );
 }

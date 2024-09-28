@@ -20,28 +20,21 @@ export const Th = styled.th`
   text-align: start;
   border-bottom: inset;
   padding-bottom: 5px;
-  @media (max-width: 500px) {
-    ${(props) => props.onlyWeb && "display: none"}
-  }
 `;
 export const Td = styled.td`
   padding-top: 15px;
   text-align: ${(props) => (props.alignCenter ? "center" : "start")};
-  width: ${(props) => (props.width ? props.width : "auto")};
-  @media (max-width: 800px) {
-    ${(props) => props.onlyWeb && "display: none"}
-  }
 `;
-const Grid = ({ agendas, setAgendas, setOnEdit }) => {
+const Grid = ({ usuarios, setUsuarios, setOnEdit }) => {
   const handleEdit = (item) => {
     setOnEdit(item);
   };
   const handleDelete = async (codigo) => {
     await axios
-      .delete("http://localhost:8800/" + codigo)
+      .delete("http://localhost:8800/usuarios/" + codigo)
       .then(({ data }) => {
-        const newArray = agendas.filter((agenda) => agenda.codigo !== codigo);
-        setAgendas(newArray);
+        const newArray = usuarios.filter((usuario) => usuario.codigo !== codigo); 
+        setUsuarios(newArray);
         toast.success(data);
       })
       .catch(({ data }) => toast.error(data));
@@ -52,25 +45,23 @@ const Grid = ({ agendas, setAgendas, setOnEdit }) => {
       <Thead>
         <Tr>
           <Th>Nome</Th>
-          <Th>Endereco</Th>
-          <Th>Telefone</Th>
           <Th>Email</Th>
+          <Th>Telefone</Th> {}
           <Th></Th>
           <Th></Th>
         </Tr>
       </Thead>
       <Tbody>
-        {agendas.map((item, i) => (
+        {usuarios.map((item, i) => (
           <Tr key={i}>
-            <Td width="22%">{item.nome}</Td>
-            <Td width="22%">{item.endereco}</Td>
-            <Td width="15%">{item.telefone}</Td>
-            <Td width="22%">{item.email}</Td>
-            <Td alignCenter width="4%">
+            <Td width="25%">{item.nome}</Td>
+            <Td width="25%">{item.email}</Td>
+            <Td width="25%">{item.telefone}</Td> {}
+            <Td alignCenter width="10%">
               <FaEdit onClick={() => handleEdit(item)} />
             </Td>
-            <Td alignCenter width="4%">
-              <FaTrash onClick={() => handleDelete(item.codigo)} />
+            <Td alignCenter width="10%">
+              <FaTrash onClick={() => handleDelete(item.codigo)} /> {}
             </Td>
           </Tr>
         ))}
